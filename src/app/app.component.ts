@@ -9,11 +9,16 @@ import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/scan';
 import 'rxjs/add/operator/mapTo';
 
+//only need to add this to app.module
+//import { Clock } from './clock';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
+  //only need to add it to app.module
+  //directives: [Clock]
 })
 export class AppComponent {
   click$ = new Subject()
@@ -23,10 +28,10 @@ export class AppComponent {
     .interval(1000)
     .mapTo({type: 'SECOND', payload: 1});
 
-  clock;
+  time;
 
   constructor(_store: Store<any>) {
-    this.clock = _store.select('clock');
+    this.time = _store.select('clock');
 
 
     Observable.merge(

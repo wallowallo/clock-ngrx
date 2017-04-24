@@ -7,11 +7,15 @@ import { clock } from './reducers';
 
 import { AppComponent } from './app.component';
 
+//only need to add custom components to the app.modules declarations
+import { Clock } from './clock';
+
 import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    Clock
   ],
   imports: [
     BrowserModule,
