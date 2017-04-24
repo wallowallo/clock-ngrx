@@ -1,5 +1,5 @@
 <h1>
   {{clock | async | date:'medium'}}
 </h1>
-
-<button (click)="click$.next()">Update</button>
+<input #inputNum value="0" type="number">
+<button (click)="click$.next(inputNum.value)">Update</button>

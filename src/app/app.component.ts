@@ -16,7 +16,12 @@ import 'rxjs/add/operator/mapTo';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  click$ = new Subject();
+  click$ = new Subject()
+    .map((value: string) => ({type: 'HOUR', payload: parseInt(value)}));
+
+  seconds$ = Observable
+    .interval(1000)
+    .mapTo({type: 'SECOND', payload: 1});
 
   clock;
 
@@ -25,11 +30,9 @@ export class AppComponent {
 
 
     Observable.merge(
-        this.click$.mapTo('HOUR'),
-        Observable.interval(1000).mapTo('SECOND')
+        this.click$,
+        this.seconds$
       )
-        .subscribe((type) => {
-          _store.dispatch({type});
-        })
+        .subscribe(_store.dispatch.bind(_store));
   }
 }
