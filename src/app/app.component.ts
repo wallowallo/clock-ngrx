@@ -28,6 +28,8 @@ export class AppComponent {
     .interval(1000)
     .mapTo({type: 'SECOND', payload: 1});
 
+  updatePerson$ = new Subject()
+    .map((value) => ({type: 'UPDATE_PERSON', payload: value}));
 
   person$ = new Subject()
     .map((value: string) => ({type: 'ADD_PERSON', payload: value}))
@@ -44,7 +46,8 @@ export class AppComponent {
 
     Observable.merge(
         this.click$,
-        this.seconds$
+        this.seconds$,
+        this.updatePerson$
       )
         .subscribe(_store.dispatch.bind(_store));
   }

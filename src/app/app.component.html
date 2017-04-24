@@ -1,6 +1,6 @@
 <input #inputPerson type="text">
 <button (click)="person$.next(inputPerson.value)">add</button>
-<li *ngFor="let person of people | async">
+<li (click)="updatePerson$.next(person)" *ngFor="let person of people | async">
   {{person.name}} is in {{person.time | date: 'jms'}}
 </li>
 <people></people>

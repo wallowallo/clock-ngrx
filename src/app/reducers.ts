@@ -30,6 +30,17 @@ export const people = (state = defaultPeople, {type, payload}) => {
         {name: payload, time: clock()}
     ];
 
+    case 'UPDATE_PERSON':
+      return state.map(person => {
+        if(payload === person) {
+          return {
+            ...person,
+            time: clock(person.time, {type: 'HOUR', payload: 5})
+          };
+        }
+        return {...person};
+      });
+
     default:
       return state;
   }
