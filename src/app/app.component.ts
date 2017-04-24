@@ -28,10 +28,18 @@ export class AppComponent {
     .interval(1000)
     .mapTo({type: 'SECOND', payload: 1});
 
+
+  person$ = new Subject()
+    .map((value: string) => ({type: 'ADD_PERSON', payload: value}))
+
   time;
+  people;
 
   constructor(_store: Store<any>) {
     this.time = _store.select('clock');
+    this.people = _store.select('people');
+
+    this.person$.subscribe(_store.dispatch.bind(_store))
 
 
     Observable.merge(
