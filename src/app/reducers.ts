@@ -1,5 +1,8 @@
+//name of the reducer, initializing state, and action types + payload with initialized values to not get an error
 export const clock = (state = new Date(), {type, payload} = {type: "", payload: 0}) => {
+  //set date so we can manipulate it
   const date = new Date(state.getTime())
+  //switch uses different pre-defined actions for different types
   switch(type) {
     case 'SECOND':
       date.setSeconds(date.getSeconds() + payload);
@@ -14,6 +17,7 @@ export const clock = (state = new Date(), {type, payload} = {type: "", payload: 
   }
 }
 
+//starting array with default values
 const defaultPeople = [
   {name: "john", time: clock()},
   {name: "sara", time: clock()},
@@ -46,7 +50,7 @@ export const people = (state = defaultPeople, {type, payload}) => {
         ...person,
         time: payload
       }))
-
+    //always default to return state for unknown actions
     default:
       return state;
   }

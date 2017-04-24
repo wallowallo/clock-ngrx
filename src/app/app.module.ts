@@ -9,15 +9,13 @@ import { AppComponent } from './app.component';
 
 //only need to add custom components to the app.modules declarations
 import { Clock } from './clock';
-import { People } from './people';
 
 import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
     AppComponent,
-    Clock,
-    People
+    Clock
   ],
   imports: [
     BrowserModule,

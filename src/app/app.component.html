@@ -1,12 +1,11 @@
+<input #inputNum value="0" type="number">
+<button (click)="click$.next(inputNum.value)">Update</button>
+<clock [time]="time | async"></clock>
+
 <input #inputPerson type="text">
 <button (click)="person$.next(inputPerson.value)">add</button>
 <li (click)="updatePerson$.next(person)" *ngFor="let person of people | async">
   {{person.name}} is in {{person.time | date: 'jms'}}
 </li>
-<people></people>
 
 <button (click)="recallPeople$.next()">recall</button>
-
-<input #inputNum value="0" type="number">
-<button (click)="click$.next(inputNum.value)">Update</button>
-<clock [time]="time | async"></clock>
