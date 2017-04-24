@@ -1,3 +1,5 @@
 <h1>
-  {{title}}
+  {{clock | async | date:'medium'}}
 </h1>
+
+<button (click)="click$.next()">Update</button>
