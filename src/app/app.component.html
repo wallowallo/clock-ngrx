@@ -5,6 +5,8 @@
 </li>
 <people></people>
 
+<button (click)="recallPeople$.next()">recall</button>
+
 <input #inputNum value="0" type="number">
 <button (click)="click$.next(inputNum.value)">Update</button>
 <clock [time]="time | async"></clock>

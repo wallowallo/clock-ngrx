@@ -41,6 +41,12 @@ export const people = (state = defaultPeople, {type, payload}) => {
         return {...person};
       });
 
+    case 'RECALL_PEOPLE':
+      return state.map((person) => ({
+        ...person,
+        time: payload
+      }))
+
     default:
       return state;
   }

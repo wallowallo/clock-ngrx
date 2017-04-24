@@ -6,6 +6,7 @@ import 'rxjs/add/observable/interval';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/startWith';
+import 'rxjs/add/operator/withLatestFrom';
 import 'rxjs/add/operator/scan';
 import 'rxjs/add/operator/mapTo';
 
@@ -28,6 +29,8 @@ export class AppComponent {
     .interval(1000)
     .mapTo({type: 'SECOND', payload: 1});
 
+  recallPeople$ = new Subject();
+
   updatePerson$ = new Subject()
     .map((value) => ({type: 'UPDATE_PERSON', payload: value}));
 
@@ -47,7 +50,10 @@ export class AppComponent {
     Observable.merge(
         this.click$,
         this.seconds$,
-        this.updatePerson$
+        this.updatePerson$,
+        this.recallPeople$ //underscore is latest value from recallPeople$
+        .withLatestFrom(this.time, (_, y) => y) //y is latest from this.time
+        .map((time) => ({type: 'RECALL_PEOPLE', payload: time}))
       )
         .subscribe(_store.dispatch.bind(_store));
   }
