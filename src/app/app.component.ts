@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
+import { Store, provideStore } from '@ngrx/store';
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/scan';
+import 'rxjs/add/operator/mapTo';
 
 
 @Component({
@@ -18,17 +20,16 @@ export class AppComponent {
 
   clock;
 
-  constructor() {
-    this.clock = Observable.merge(
-      this.click$,
-      Observable.interval(1000)
-    )
-      .startWith(new Date())
-      .scan((acc: Date, curr)=> {
-             const date = new Date(acc.getTime());
-             date.setSeconds(date.getSeconds() + 1);
+  constructor(_store: Store<any>) {
+    this.clock = _store.select('clock');
 
-             return date;
-      });
+
+    Observable.merge(
+        this.click$.mapTo('HOUR'),
+        Observable.interval(1000).mapTo('SECOND')
+      )
+        .subscribe((type) => {
+          _store.dispatch({type});
+        })
   }
 }
